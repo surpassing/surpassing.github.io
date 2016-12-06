@@ -5,7 +5,7 @@
   <link href="/sitemap.xml" rel="self"/>
   
   <link href="https://www.shinejits.com/"/>
-  <updated>2016-12-06T19:13:32.000Z</updated>
+  <updated>2016-12-06T19:17:44.000Z</updated>
   <id>https://www.shinejits.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/"/>
     <id>https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/</id>
     <published>2016-12-06T18:42:14.000Z</published>
-    <updated>2016-12-06T19:13:32.000Z</updated>
+    <updated>2016-12-06T19:17:44.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Wordpress在Nginx环境-lnmp-下部署HTTPS"><a href="#Wordpress在Nginx环境-lnmp-下部署HTTPS" class="headerlink" title="Wordpress在Nginx环境(lnmp)下部署HTTPS"></a>Wordpress在Nginx环境(lnmp)下部署HTTPS</h1><h2 id="Reading-Material-and-Guides"><a href="#Reading-Material-and-Guides" class="headerlink" title="Reading Material and Guides"></a>Reading Material and Guides</h2><ol>
 <li><p><a href="https://letsencrypt.org/getting-started/" target="_blank" rel="external">Let’s Encrypt</a></p>
@@ -40,7 +40,8 @@
 <blockquote>
 <p>Note that to use the webroot plugin, your server must be configured to serve files from hidden directories. If /.well-known is treated specially by your webserver configuration, you might need to modify the configuration to ensure that files inside /.well-known/acme-challenge are served by the webserver.</p>
 </blockquote>
-<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p><em>此处需要注意的是，lnmp环境下建立虚拟主机，nginx配置应该是在conf/vhost/中的特定的域名配置文件下修改的，例如我这里是blogofmusic.com.conf. 而conf/下的nginx.conf也尝试了修改，但是似乎没有作用</em></p>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><blockquote class="blockquote-center">此处需要注意的是，lnmp环境下建立虚拟主机，nginx配置应该是在conf/vhost/中的特定的域名配置文件下修改的，例如我这里是blogofmusic.com.conf.</blockquote>
+
 <p>lnmp默认的nginx.conf配置如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Deny all attempts to access hidden files</div><div class="line"># such as .htaccess, .htpasswd, .DS_Store (Mac).</div><div class="line">location ~ /\. &#123;</div><div class="line">    deny all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>接下来尝试了数个配置都不成功，参考文一<a href="http://stackoverflow.com/questions/34259548/how-to-disallow-access-to-all-dot-directories-except-well-known/34262192" target="_blank" rel="external">/.well-knowen - Stack Overflow</a></p>
@@ -72,7 +73,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name blogofmusic.com www.blogofmusic.com;</div><div class="line">    return 301 https://www.blogofmusic.com$request_uri;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><em>参考这篇文章！！非常重要！</em><br><a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04" target="_blank" rel="external">How To Secure Nginx with Let’s Encrypt on Ubuntu 14.04 | DigitalOcean</a></p>
+<p><span id="inline-yellow">参考这篇文章！！非常重要！</span><br><a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04" target="_blank" rel="external">How To Secure Nginx with Let’s Encrypt on Ubuntu 14.04 | DigitalOcean</a></p>
 <h2 id="后续问题"><a href="#后续问题" class="headerlink" title="后续问题"></a>后续问题</h2><p>在更改wordpress的site url为https后，已经成功布置https，但是用chrome访问网站的时候，没有小绿锁，查看Console后发现如下问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Mixed Content: The page at &apos;https://www.blogofmusic.com/&apos; was loaded over HTTPS, but requested an insecure image &apos;http://p3.music.126.net/1wuBM5YSaQGd6ua9_Eac7w==/3265549562091723.jpg&apos;. This content should also be served over HTTPS.</div></pre></td></tr></table></figure></p>
 <p>参考 <a href="https://developers.google.com/web/fundamentals/security/prevent-mixed-content/fixing-mixed-content" target="_blank" rel="external">Preventing Mixed Content  |  Web<br>       |  Google Developers</a></p>
 <p>解决方法就是找出这些加载的站外http内容，想办法换成https的。</p>
