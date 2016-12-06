@@ -86,55 +86,40 @@
 
 
 
-<meta name="description" content="Wordpress在Nginx环境(lnmp)下部署HTTPSReading Material and Guides
+<meta name="description" content="Wordpress在Nginx环境(lnmp)下部署HTTPSReading Material and Guides今天把我的音乐推荐博客blogofmusic.com部署了下https环境，以下是一些安装过程和排错，服务器是CentOS6.8，lnmp一键安装包nginx环境，wordpress当前最新版本
+
+
+
 Let’s Encrypt
 
 Certbot CentOS6
 
-Certbot Doc
-
-HTTPS 升级指南 - 阮一峰
-
-
-
-
-Personally, the command is as follows:
-1./certbot-auto certonly —webroot -w">
+Certbot D">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Moving to HTTPS on Wordpress with Nginx (lnmp)">
-<meta property="og:url" content="https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/index.html">
+<meta property="og:title" content="Moving to https on Wordpress (Nginx&lnmp Envir)">
+<meta property="og:url" content="https://www.shinejits.com/2016/12/06/Moving-to-https-on-wordpress-with-Nginx/index.html">
 <meta property="og:site_name" content="Yanxin' Blog">
-<meta property="og:description" content="Wordpress在Nginx环境(lnmp)下部署HTTPSReading Material and Guides
+<meta property="og:description" content="Wordpress在Nginx环境(lnmp)下部署HTTPSReading Material and Guides今天把我的音乐推荐博客blogofmusic.com部署了下https环境，以下是一些安装过程和排错，服务器是CentOS6.8，lnmp一键安装包nginx环境，wordpress当前最新版本
+
+
+
 Let’s Encrypt
 
 Certbot CentOS6
 
-Certbot Doc
-
-HTTPS 升级指南 - 阮一峰
-
-
-
-
-Personally, the command is as follows:
-1./certbot-auto certonly —webroot -w">
-<meta property="og:updated_time" content="2016-12-06T19:17:44.000Z">
+Certbot D">
+<meta property="og:updated_time" content="2016-12-06T19:25:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Moving to HTTPS on Wordpress with Nginx (lnmp)">
-<meta name="twitter:description" content="Wordpress在Nginx环境(lnmp)下部署HTTPSReading Material and Guides
+<meta name="twitter:title" content="Moving to https on Wordpress (Nginx&lnmp Envir)">
+<meta name="twitter:description" content="Wordpress在Nginx环境(lnmp)下部署HTTPSReading Material and Guides今天把我的音乐推荐博客blogofmusic.com部署了下https环境，以下是一些安装过程和排错，服务器是CentOS6.8，lnmp一键安装包nginx环境，wordpress当前最新版本
+
+
+
 Let’s Encrypt
 
 Certbot CentOS6
 
-Certbot Doc
-
-HTTPS 升级指南 - 阮一峰
-
-
-
-
-Personally, the command is as follows:
-1./certbot-auto certonly —webroot -w">
+Certbot D">
 
 
 
@@ -162,13 +147,13 @@ Personally, the command is as follows:
 
 
 
-  <link rel="canonical" href="https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/"/>
+  <link rel="canonical" href="https://www.shinejits.com/2016/12/06/Moving-to-https-on-wordpress-with-Nginx/"/>
 
 
 
 
 
-  <title> Moving to HTTPS on Wordpress with Nginx (lnmp) | Yanxin' Blog </title>
+  <title> Moving to https on Wordpress (Nginx&lnmp Envir) | Yanxin' Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -299,7 +284,7 @@ Personally, the command is as follows:
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/">
+  <link itemprop="mainEntityOfPage" href="https://www.shinejits.com/2016/12/06/Moving-to-https-on-wordpress-with-Nginx/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Yanxin">
@@ -323,7 +308,7 @@ Personally, the command is as follows:
             
             
               
-                Moving to HTTPS on Wordpress with Nginx (lnmp)
+                Moving to https on Wordpress (Nginx&lnmp Envir)
               
             
           </h1>
@@ -372,7 +357,10 @@ Personally, the command is as follows:
       
 
       
-        <h1 id="Wordpress在Nginx环境-lnmp-下部署HTTPS"><a href="#Wordpress在Nginx环境-lnmp-下部署HTTPS" class="headerlink" title="Wordpress在Nginx环境(lnmp)下部署HTTPS"></a>Wordpress在Nginx环境(lnmp)下部署HTTPS</h1><h2 id="Reading-Material-and-Guides"><a href="#Reading-Material-and-Guides" class="headerlink" title="Reading Material and Guides"></a>Reading Material and Guides</h2><ol>
+        <h1 id="Wordpress在Nginx环境-lnmp-下部署HTTPS"><a href="#Wordpress在Nginx环境-lnmp-下部署HTTPS" class="headerlink" title="Wordpress在Nginx环境(lnmp)下部署HTTPS"></a>Wordpress在Nginx环境(lnmp)下部署HTTPS</h1><h2 id="Reading-Material-and-Guides"><a href="#Reading-Material-and-Guides" class="headerlink" title="Reading Material and Guides"></a>Reading Material and Guides</h2><p><em>今天把我的音乐推荐博客blogofmusic.com部署了下https环境，以下是一些安装过程和排错，服务器是CentOS6.8，lnmp一键安装包nginx环境，wordpress当前最新版本</em></p>
+<hr>
+
+<ol>
 <li><p><a href="https://letsencrypt.org/getting-started/" target="_blank" rel="external">Let’s Encrypt</a></p>
 </li>
 <li><p><a href="https://certbot.eff.org/#centos6-nginx" target="_blank" rel="external">Certbot CentOS6</a></p>
