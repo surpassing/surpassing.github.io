@@ -5,7 +5,7 @@
   <link href="/sitemap.xml" rel="self"/>
   
   <link href="https://www.shinejits.com/"/>
-  <updated>2016-12-06T18:12:14.000Z</updated>
+  <updated>2016-12-06T19:13:32.000Z</updated>
   <id>https://www.shinejits.com/</id>
   
   <author>
@@ -14,6 +14,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Moving to HTTPS on Wordpress with Nginx (lnmp)</title>
+    <link href="https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/"/>
+    <id>https://www.shinejits.com/2016/12/06/Moving-to-HTTPS-on-Wordpress-with-Nginx/</id>
+    <published>2016-12-06T18:42:14.000Z</published>
+    <updated>2016-12-06T19:13:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Wordpress在Nginx环境-lnmp-下部署HTTPS"><a href="#Wordpress在Nginx环境-lnmp-下部署HTTPS" class="headerlink" title="Wordpress在Nginx环境(lnmp)下部署HTTPS"></a>Wordpress在Nginx环境(lnmp)下部署HTTPS</h1><h2 id="Reading-Material-and-Guides"><a href="#Reading-Material-and-Guides" class="headerlink" title="Reading Material and Guides"></a>Reading Material and Guides</h2><ol>
+<li><p><a href="https://letsencrypt.org/getting-started/" target="_blank" rel="external">Let’s Encrypt</a></p>
+</li>
+<li><p><a href="https://certbot.eff.org/#centos6-nginx" target="_blank" rel="external">Certbot CentOS6</a></p>
+</li>
+<li><p><a href="https://certbot.eff.org/docs/using.html#webroot" target="_blank" rel="external">Certbot Doc</a></p>
+</li>
+<li><p><a href="http://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html" target="_blank" rel="external">HTTPS 升级指南 - 阮一峰</a></p>
+<hr>
+
+</li>
+</ol>
+<p>Personally, the command is as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./certbot-auto certonly —webroot -w /home/wwwroot/blogofmusic.com/ -d www.blogofmusic.com -d blogofmusic.com</div></pre></td></tr></table></figure>
+<p>Authentication Failed，The problem might be:</p>
+<blockquote>
+<p>Note that to use the webroot plugin, your server must be configured to serve files from hidden directories. If /.well-known is treated specially by your webserver configuration, you might need to modify the configuration to ensure that files inside /.well-known/acme-challenge are served by the webserver.</p>
+</blockquote>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p><em>此处需要注意的是，lnmp环境下建立虚拟主机，nginx配置应该是在conf/vhost/中的特定的域名配置文件下修改的，例如我这里是blogofmusic.com.conf. 而conf/下的nginx.conf也尝试了修改，但是似乎没有作用</em></p>
+<p>lnmp默认的nginx.conf配置如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Deny all attempts to access hidden files</div><div class="line"># such as .htaccess, .htpasswd, .DS_Store (Mac).</div><div class="line">location ~ /\. &#123;</div><div class="line">    deny all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来尝试了数个配置都不成功，参考文一<a href="http://stackoverflow.com/questions/34259548/how-to-disallow-access-to-all-dot-directories-except-well-known/34262192" target="_blank" rel="external">/.well-knowen - Stack Overflow</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location ^~ /.well-known/ &#123;</div><div class="line">#   allow all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>认证依旧失败，又参考了文二 <a href="https://programming-review.com/nginx-disable-access-to-htaccess-file/" target="_blank" rel="external">Nginx, Disable access to .htaccess file, and other hidden files</a> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># Allow access to the ACME Challenge for Let’s Encrypt</div><div class="line">location ~ /\.well-known\/acme-challenge &#123;</div><div class="line">allow all;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># Deny all attempts to access hidden files</div><div class="line"># such as .htaccess, .htpasswd, .DS_Store (Mac).</div><div class="line">location ~ /\. &#123;</div><div class="line">deny all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后参考 <a href="https://www.vpser.net/build/letsencrypt-certbot.html" target="_blank" rel="external">免费SSL证书Let’s Encrypt(certbot)安装使用教程 - VPS侦探</a> 这一次直接很暴力的注释掉了整个location block，使得nginx不屏蔽.开头的文件，再使用单域名命令认证后成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./certbot-auto certonly --webroot -w /home/wwwroot/blogofmusic.com -d www.blogofmusic.com -d blogofmusic.com</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- Congratulations! Your certificate and chain have been saved at</div><div class="line">  /etc/letsencrypt/live/www.blogofmusic.com/fullchain.pem. Your cert</div><div class="line">  will expire on 2017-03-06. To obtain a new or tweaked version of</div><div class="line">  this certificate in the future, simply run certbot-auto again. To</div><div class="line">  non-interactively renew *all* of your certificates, run</div><div class="line">  &quot;certbot-auto renew&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>在deny这个block前添加<code>location ~ /.well-known {allow all;}</code>代码块的方式失败，并不知道为什么，所以注释掉了所有的deny block。但是这种方法很不安全，建议的临时安全解决方案是添加以下代码<br><code>location ~ /\.ht {deny all;}</code></li>
+</ul>
+<h2 id="证书续期"><a href="#证书续期" class="headerlink" title="证书续期"></a>证书续期</h2><p>使用certbot的自动续期功能，参考原文内容 <a href="https://certbot.eff.org/#centos6-nginx" target="_blank" rel="external">Certbot</a></p>
+<p>我这里看的是vpser的博客，配合服务器crontab进行自动化，参考 <a href="https://www.vpser.net/manage/crontab.html" target="_blank" rel="external">Linux VPS/服务器上用Crontab来定时执行实现VPS自动化 - VPS侦探</a> :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum install vixie-cron crontabs //安装Crontab</div><div class="line">crontab -l //查看crontab定时执行任务列表</div><div class="line">crontab -e //添加定时执行任务 (编辑器可能不同，vim的话就是i编辑, esc, :wq)</div></pre></td></tr></table></figure></p>
+<p>这里的规则参考 <a href="https://www.vpser.net/build/letsencrypt-certbot.html" target="_blank" rel="external">免费SSL证书Let’s Encrypt(certbot)安装使用教程 - VPS侦探</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 3 */5 * * /root/certbot-auto renew —renew-hook &quot;/etc/init.d/nginx reload</div></pre></td></tr></table></figure></p>
+<h2 id="认证证书"><a href="#认证证书" class="headerlink" title="认证证书"></a>认证证书</h2><p>安装Let’s Encrypt成功后，使用 SSL Labs Server Test 检查一下证书是否生效<br><a href="https://tools.keycdn.com/ssl" target="_blank" rel="external">SSL Labs Server Test</a><br><br><br>查看证书内容 <code>cat /etc/letsencrypt/live/www.blogofmusic.com/fullchain.pem</code></p>
+<h2 id="HTTPS设置"><a href="#HTTPS设置" class="headerlink" title="HTTPS设置"></a>HTTPS设置</h2><p>这里出现了个问题，是因为把301重定向写到了总的location block里，而且lnmp下开启了wordpress的一些配置，具体参考 <a href="https://www.digitalocean.com/community/questions/nginx-404-error-on-all-wordpress-posts-and-pages-except-homepage" target="_blank" rel="external">nginx 404 error on all wordpress posts and pages except homepage | DigitalOcean</a> )，最后的写法是</p>
+<ol>
+<li><p>去掉原来的80部分，修改为 (去掉了spdy)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">listen 443 ssl;</div><div class="line">#listen [::]:443 ssl spdy;</div><div class="line">server_name blogofmusic.com www.blogofmusic.com;</div><div class="line">index index.html index.htm index.php default.html default.htm default.php;</div><div class="line">root  /home/wwwroot/blogofmusic.com;</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加ssl部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ssl on;</div><div class="line">ssl_certificate /etc/letsencrypt/live/www.blogofmusic.com/fullchain.pem;</div><div class="line">ssl_certificate_key /etc/letsencrypt/live/www.blogofmusic.com/privkey.pem;</div><div class="line">ssl_session_timeout 5m;</div><div class="line">ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</div><div class="line">ssl_prefer_server_ciphers on;</div><div class="line">ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-RC4-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:RC4-SHA:!aNULL:!eNULL:!EXPORT:!DES:!3DES:!MD5:!DSS:!PKS;</div><div class="line">ssl_session_cache builtin:1000 shared:SSL:10m;</div></pre></td></tr></table></figure>
+</li>
+<li><p>加上了这一个，renew证书时用，参考 <a href="https://www.vpser.net/build/letsencrypt-free-ssl.html" target="_blank" rel="external">免费SSL安全证书Let’s Encrypt安装使用教程(附Nginx/Apache配置) - VPS侦探</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#https setting 2016/12/05</div><div class="line">location /.well-known/ &#123;</div><div class="line">    allow all;</div><div class="line">    add_header Content-Type &apos;text/plain;&apos;;</div><div class="line">    root /home/wwwroot/blogofmusic.com;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>最后在新的block里添加301重定向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name blogofmusic.com www.blogofmusic.com;</div><div class="line">    return 301 https://www.blogofmusic.com$request_uri;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><em>参考这篇文章！！非常重要！</em><br><a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04" target="_blank" rel="external">How To Secure Nginx with Let’s Encrypt on Ubuntu 14.04 | DigitalOcean</a></p>
+<h2 id="后续问题"><a href="#后续问题" class="headerlink" title="后续问题"></a>后续问题</h2><p>在更改wordpress的site url为https后，已经成功布置https，但是用chrome访问网站的时候，没有小绿锁，查看Console后发现如下问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Mixed Content: The page at &apos;https://www.blogofmusic.com/&apos; was loaded over HTTPS, but requested an insecure image &apos;http://p3.music.126.net/1wuBM5YSaQGd6ua9_Eac7w==/3265549562091723.jpg&apos;. This content should also be served over HTTPS.</div></pre></td></tr></table></figure></p>
+<p>参考 <a href="https://developers.google.com/web/fundamentals/security/prevent-mixed-content/fixing-mixed-content" target="_blank" rel="external">Preventing Mixed Content  |  Web<br>       |  Google Developers</a></p>
+<p>解决方法就是找出这些加载的站外http内容，想办法换成https的。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Wordpress在Nginx环境-lnmp-下部署HTTPS&quot;&gt;&lt;a href=&quot;#Wordpress在Nginx环境-lnmp-下部署HTTPS&quot; class=&quot;headerlink&quot; title=&quot;Wordpress在Nginx环境(lnmp)下部署HTTP
+    
+    </summary>
+    
+    
+      <category term="前端, 后端" scheme="https://www.shinejits.com/tags/%E5%89%8D%E7%AB%AF-%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>部署Hexo博客</title>
