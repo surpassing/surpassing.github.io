@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -74,6 +74,8 @@
 
 
 
+  <link rel="alternate" href="/sitemap.xml" title="Yanxin' Blog" type="application/atom+xml" />
+
 
 
 
@@ -103,7 +105,7 @@
     motion: true,
     duoshuo: {
       userId: '0',
-      author: '博主'
+      author: 'Author'
     },
     algolia: {
       applicationID: '',
@@ -126,7 +128,7 @@
   <title> Yanxin' Blog </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
 
@@ -183,17 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
+            Home
           </a>
         </li>
       
@@ -203,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            Archives
           </a>
         </li>
       
@@ -213,27 +205,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            标签
+            Tags
           </a>
         </li>
       
         
         <li class="menu-item menu-item-music">
-          <a href="/music" rel="section">
+          <a href="https://www.blogofmusic.com" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
             
-            menu.music
+            Music
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Sitemap
+            About
           </a>
         </li>
       
@@ -305,7 +297,7 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">发表于</span>
+              <span class="post-meta-item-text">Posted on</span>
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-06T11:44:53-05:00">
                 2016-12-06
               </time>
@@ -358,10 +350,18 @@
 <li>我选择忽略，等待官方更新</li>
 </ul>
 </li>
-<li>Git clone 主题Next后上传到surpassing.github.io出错<ul>
+<li><p>Git clone 主题Next后上传到surpassing.github.io出错</p>
+<ul>
 <li>参考 <a href="http://stackoverflow.com/questions/23304734/github-client-on-os-x-commit-fail-failed-to-add-file" target="_blank" rel="external">git - GitHub Client on OS X Commit Fail (“Failed to add file …) - Stack Overflow</a> 以及 <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="external">Git远程操作详解 - 阮一峰的网络日志</a> 中的git remote，但是比较复杂</li>
 <li>既然官方提供了<code>hexo deploy</code>命令，推荐使用，如果ssh方式失败参考<a href="https://help.github.com/articles/generating-an-ssh-key/" target="_blank" rel="external">Github生成ssh key</a></li>
 <li>如果偷懒可以直接用https的方法</li>
+</ul>
+</li>
+<li><p>域名解析</p>
+<ul>
+<li>Hexo目录下source/下创建CNAME文件 (Linux下可以用<code>touch</code>）在其中添加想要用的域名，然后hexo d部署到Github上</li>
+<li>检查:Github博客的Repo下，点开Setting可以看到Custom Domain选项，显示是否成功<em>Your site is published at yourdomain.com</em></li>
+<li>然后去域名服务商添加A记录，指向Github的192.30.252.153和192.30.252.154，主机记录都填@即可</li>
 </ul>
 </li>
 </ol>
@@ -436,7 +436,7 @@
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">日志</span>
+              <span class="site-state-item-name">posts</span>
             </a>
           </div>
 
@@ -446,13 +446,20 @@
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">标签</span>
+                <span class="site-state-item-name">tags</span>
               </a>
             </div>
           
 
         </nav>
 
+        
+          <div class="feed-link motion-element">
+            <a href="/sitemap.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
         
 
         <div class="links-of-author motion-element">
@@ -500,11 +507,11 @@
 
 
 <div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  主题 -
+  Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yanxin&#39; Blog</title>
+  
+  <link href="/sitemap.xml" rel="self"/>
+  
+  <link href="https://www.shinejits.com/"/>
+  <updated>2016-12-06T17:44:59.000Z</updated>
+  <id>https://www.shinejits.com/</id>
+  
+  <author>
+    <name>Yanxin</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>部署Hexo博客</title>
+    <link href="https://www.shinejits.com/2016/12/06/%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://www.shinejits.com/2016/12/06/部署Hexo博客/</id>
+    <published>2016-12-06T16:44:53.000Z</published>
+    <updated>2016-12-06T17:44:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="博客迁移"><a href="#博客迁移" class="headerlink" title="博客迁移:"></a>博客迁移:</h2><ol>
+<li><a href="https://hexo.io/docs/" target="_blank" rel="external">Hexo博客文档</a></li>
+<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">Next主题文档</a></li>
+<li><a href="https://neveryu.github.io/2016/09/03/hexo-next-one/" target="_blank" rel="external">Neveryu教学-三部曲强力推荐</a></li>
+<li><a href="http://blog.junyu.pro/posts/hexo/0010-hexo-learn-from-Never-yu.html#visitor" target="_blank" rel="external">Junyu对Neveryu教学的汇总</a></li>
+<li><a href="http://jiji262.github.io/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="external">更多优化</a></li>
+</ol>
+<h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><ol>
+<li>运行<code>hexo</code>出错，类似<br><code>[Error: Cannot find module &#39;./DTraceProviderBindings’]</code><ul>
+<li>官方解决方案 <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">Troubleshooting | Hexo</a> 并没有用</li>
+<li>问题出在dtrace-provider,卸载后也没有解决，可以在hexo安装目录中修改dtrace-provider.js屏蔽错误信息，但是不推荐</li>
+<li>我选择忽略，等待官方更新</li>
+</ul>
+</li>
+<li><p>Git clone 主题Next后上传到surpassing.github.io出错</p>
+<ul>
+<li>参考 <a href="http://stackoverflow.com/questions/23304734/github-client-on-os-x-commit-fail-failed-to-add-file" target="_blank" rel="external">git - GitHub Client on OS X Commit Fail (“Failed to add file …) - Stack Overflow</a> 以及 <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="external">Git远程操作详解 - 阮一峰的网络日志</a> 中的git remote，但是比较复杂</li>
+<li>既然官方提供了<code>hexo deploy</code>命令，推荐使用，如果ssh方式失败参考<a href="https://help.github.com/articles/generating-an-ssh-key/" target="_blank" rel="external">Github生成ssh key</a></li>
+<li>如果偷懒可以直接用https的方法</li>
+</ul>
+</li>
+<li><p>域名解析</p>
+<ul>
+<li>Hexo目录下source/下创建CNAME文件 (Linux下可以用<code>touch</code>）在其中添加想要用的域名，然后hexo d部署到Github上</li>
+<li>检查:Github博客的Repo下，点开Setting可以看到Custom Domain选项，显示是否成功<em>Your site is published at yourdomain.com</em></li>
+<li>然后去域名服务商添加A记录，指向Github的192.30.252.153和192.30.252.154，主机记录都填@即可</li>
+</ul>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;博客迁移&quot;&gt;&lt;a href=&quot;#博客迁移&quot; class=&quot;headerlink&quot; title=&quot;博客迁移:&quot;&gt;&lt;/a&gt;博客迁移:&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;e
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="https://www.shinejits.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+</feed>
