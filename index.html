@@ -347,21 +347,24 @@
 <li>运行<code>hexo</code>出错，类似<br><code>[Error: Cannot find module &#39;./DTraceProviderBindings’]</code><ul>
 <li>官方解决方案 <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">Troubleshooting | Hexo</a> 并没有用</li>
 <li>问题出在dtrace-provider,卸载后也没有解决，可以在hexo安装目录中修改dtrace-provider.js屏蔽错误信息，但是不推荐</li>
-<li>我选择忽略，等待官方更新</li>
+<li>我选择忽略，等待官方更新<br><br></li>
 </ul>
 </li>
-<li><p>Git clone 主题Next后上传到surpassing.github.io出错</p>
-<ul>
+<li>Git clone 主题Next后上传到surpassing.github.io出错<ul>
 <li>参考 <a href="http://stackoverflow.com/questions/23304734/github-client-on-os-x-commit-fail-failed-to-add-file" target="_blank" rel="external">git - GitHub Client on OS X Commit Fail (“Failed to add file …) - Stack Overflow</a> 以及 <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="external">Git远程操作详解 - 阮一峰的网络日志</a> 中的git remote，但是比较复杂</li>
 <li>既然官方提供了<code>hexo deploy</code>命令，推荐使用，如果ssh方式失败参考<a href="https://help.github.com/articles/generating-an-ssh-key/" target="_blank" rel="external">Github生成ssh key</a></li>
-<li>如果偷懒可以直接用https的方法</li>
+<li>如果偷懒可以直接用https的方法<br><br></li>
 </ul>
 </li>
-<li><p>域名解析</p>
-<ul>
+<li>域名解析<ul>
 <li>Hexo目录下source/下创建CNAME文件 (Linux下可以用<code>touch</code>）在其中添加想要用的域名，然后hexo d部署到Github上</li>
 <li>检查:Github博客的Repo下，点开Setting可以看到Custom Domain选项，显示是否成功<em>Your site is published at yourdomain.com</em></li>
-<li>然后去域名服务商添加A记录，指向Github的192.30.252.153和192.30.252.154，主机记录都填@即可</li>
+<li>然后去域名服务商添加A记录，指向Github的192.30.252.153和192.30.252.154，主机记录都填@即可<br><br></li>
+</ul>
+</li>
+<li>RSS订阅/版权说明/主题相关设置<ul>
+<li>这些都能很轻松在互联网上找到</li>
+<li><a href="https://github.com/iissnan/hexo-theme-next/wiki/%E6%98%BE%E7%A4%BA-feed-%E9%93%BE%E6%8E%A5" target="_blank" rel="external">RSS教学</a></li>
 </ul>
 </li>
 </ol>
@@ -464,6 +467,26 @@
 
         <div class="links-of-author motion-element">
           
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/surpassing" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/yanxinsong" target="_blank" title="linkedin">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  linkedin
+                </a>
+              </span>
+            
+          
         </div>
 
         
@@ -495,9 +518,14 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次
+  </script>
+</div>
+
+<div class="copyright" >
   
-  &copy; 
+  &copy;  2015 - 
   <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -516,9 +544,6 @@
     NexT.Mist
   </a>
 </div>
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次
-</script>
-
 
 
         
